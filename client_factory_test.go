@@ -1,47 +1,47 @@
 package wray
 
 import (
-  "sync"
-  "time"
+	"sync"
+	"time"
 )
 
 type FakeSchedular struct {
-  requestedDelay time.Duration
+	requestedDelay time.Duration
 }
 
-func (self *FakeSchedular) wait(delay time.Duration, callback func()) {
-  self.requestedDelay = delay
+func (fs *FakeSchedular) wait(delay time.Duration, callback func()) {
+	fs.requestedDelay = delay
 }
 
-func (self *FakeSchedular) delay() time.Duration {
-  return self.requestedDelay
+func (fs *FakeSchedular) delay() time.Duration {
+	return fs.requestedDelay
 }
 
 type FayeClientBuilder struct {
-  client FayeClient
+	client FayeClient
 }
 
 func BuildFayeClient() FayeClientBuilder {
-  schedular := &FakeSchedular{}
-  client := FayeClient{state: UNCONNECTED, url: "https://localhost", clientId: "client1", schedular: schedular, mutex: &sync.RWMutex{}, connectMutex: &sync.RWMutex{}}
-  return FayeClientBuilder{client}
+	schedular := &FakeSchedular{}
+	client := FayeClient{state: UNCONNECTED, url: "https://localhost", clientID: "", schedular: schedular, mutex: &sync.RWMutex{}, connectMutex: &sync.RWMutex{}}
+	return FayeClientBuilder{client}
 }
 
-func (self FayeClientBuilder) Client() FayeClient {
-  return self.client
+func (factory FayeClientBuilder) Client() FayeClient {
+	return factory.client
 }
 
-func (self FayeClientBuilder) Connected() FayeClientBuilder {
-  self.client.state = CONNECTED
-  return self
+func (factory FayeClientBuilder) Connected() FayeClientBuilder {
+	factory.client.state = CONNECTED
+	return factory
 }
 
-func (self FayeClientBuilder) WithTransport(transport Transport) FayeClientBuilder {
-  self.client.transport = transport
-  return self
+func (factory FayeClientBuilder) WithTransport(transport Transport) FayeClientBuilder {
+	factory.client.transport = transport
+	return factory
 }
 
-func (self FayeClientBuilder) WithSubscriptions(subscriptions []Subscription) FayeClientBuilder {
-  self.client.subscriptions = subscriptions
-  return self
+func (factory FayeClientBuilder) WithSubscriptions(subscriptions []*Subscription) FayeClientBuilder {
+	factory.client.subscriptions = subscriptions
+	return factory
 }

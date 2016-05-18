@@ -1,6 +1,11 @@
 package wray
 
-type FakeHttpTransport struct {
+import (
+	"bytes"
+	"encoding/json"
+)
+
+type FakeHTTPTransport struct {
 	usable     bool
 	timesSent  int
 	sentParams map[string]interface{}
@@ -9,20 +14,19 @@ type FakeHttpTransport struct {
 	err        error
 }
 
-func (self FakeHttpTransport) isUsable(endpoint string) bool {
-	return self.usable
+func (fake FakeHTTPTransport) isUsable(endpoint string) bool {
+	return fake.usable
 }
 
-func (self FakeHttpTransport) connectionType() string {
+func (fake FakeHTTPTransport) connectionType() string {
 	return "long-polling"
 }
 
-func (self *FakeHttpTransport) send(params map[string]interface{}) (Response, error) {
-	self.sentParams = params
-	self.timesSent++
-	return self.response, self.err
+func (fake *FakeHTTPTransport) send(json.Marshaler) (decoder, error) {
+	fake.timesSent++
+	return json.NewDecoder(bytes.NewBuffer([]byte{})), fake.err
 }
 
-func (self *FakeHttpTransport) setUrl(url string) {
-	self.url = url
+func (fake *FakeHTTPTransport) setURL(url string) {
+	fake.url = url
 }

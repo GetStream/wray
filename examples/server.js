@@ -10,12 +10,12 @@ bayeux.attach(server);
 
 FayeLogger = {
   incoming: function(message, callback){
-    console.log("incoming");
+    console.log("incoming to "+message.channel);
     console.log(message)
     callback(message);
   },
   outgoing: function(message, callback){
-    console.log("outgoing");
+    console.log("outgoing from "+message.channel);
     console.log(message)
     callback(message)
   }
