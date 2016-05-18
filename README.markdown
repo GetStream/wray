@@ -183,7 +183,6 @@ There is still a lot to do to bring Wray in line with Faye functionality. This i
 - [x] logging
 - [x] don't panic!
 - [ ] stop having to register transports
-- [ ] middleware additions ???
 - [x] subscribe by giving a channel name and a go channel
 - [x] extensions support
 - [ ] correctly handle disconnect and server down
