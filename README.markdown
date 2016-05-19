@@ -182,6 +182,8 @@ There is still a lot to do to bring Wray in line with Faye functionality. This i
 - [ ] eventsource support
 - [x] logging
 - [x] don't panic!
+- [x] don't panic when the server goes away
+- [ ] fix broken tests
 - [ ] stop having to register transports
 - [x] subscribe by giving a channel name and a go channel
 - [x] extensions support
@@ -189,7 +191,6 @@ There is still a lot to do to bring Wray in line with Faye functionality. This i
 - [ ] automated integrations test to ensure Wray continues to work with Faye
 - [ ] split connection out into it's own object
 - [ ] timeout connect requests using advice from the server
-- [x] don't panic when the server goes away
 - [ ] return an interface instead of the client itself
 - [ ] use NewClient instead of NewFayeClient
 
