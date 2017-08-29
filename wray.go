@@ -313,6 +313,7 @@ func (faye *FayeClient) newMessage(channel string) *message {
 	return &message{
 		ClientID: faye.clientID,
 		Channel:  channel,
+		Ext:      make(map[string]interface{}),
 	}
 }
 
